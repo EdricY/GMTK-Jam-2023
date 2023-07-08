@@ -1,3 +1,6 @@
+import "./index.css";
+
+import { shuffle } from "./shuffle";
 
 let cellId = 0;
 class Cell {
@@ -23,14 +26,9 @@ class Cell {
     this.div.setAttribute("data-val", val);
     this.div.innerHTML = val;
     this._val = val;
-    // this.div.style.animationName = "none";
-    // setTimeout(() => this.div.style.animationName = null, 0)
   }
 
   setLoc(r, c) {
-    console.log("setloc", r, c)
-    // console.log(r, c)
-    // const div = document.getElementById("cell-" + this.id);
     this.div.style.translate = `calc(${c} * (100% + 10px)) calc(${r} * (100% + 10px))`;
   }
 
@@ -226,63 +224,72 @@ function slideD() {
   return didMove;
 }
 
-function spawn() {
+function spawnRand() {
   const empties = [];
   for (let r = 0; r < grid.length; r++) {
     for (let c = 0; c < grid[0].length; c++) {
       if (grid[r][c] === null) empties.push([r, c])
     }
   }
-  console.log(empties)
   if (empties.length === 0) return;
   const rand = Math.floor(Math.random() * empties.length);
   const rc = empties[rand];
   grid[rc[0]][rc[1]] = new Cell(2, rc[0], rc[1]);
 }
 
-function render() {
-  // document.querySelectorAll(".cell-inner").forEach(x => {
-  //   x.setAttribute("data-dirty", 1)
-  // });
 
-  // for (let r = 0; r < grid.length; r++) {
-  //   for (let c = 0; c < grid[0].length; c++) {
-  //     const cell = grid[r][c];
-  //     if (cell) {
-  //       const div = document.createElement("div");
-  //       div.innerHTML = cell.value;
-  //       div.classList.add("cell-inner");
-  //       div.classList.add("val-" + cell.value);
-  //       div.id = "cell-" + cell.id;
-  //       div.style.translate = `calc(${c} * (100% + 10px)) calc(${r} * (100% + 10px))`;
-  //       document.getElementById("grid-container").appendChild(div);
-  //     }
-  //   }
-  // }
+// window.addEventListener("keydown", e => {
+//   if (e.key === "ArrowLeft") {
+//     const didMove = slideL();
+//     if (didMove) spawnRand()
+//   }
+
+//   if (e.key === "ArrowRight") {
+//     const didMove = slideR();
+//     if (didMove) spawnRand()
+//   }
+
+//   if (e.key === "ArrowUp") {
+//     const didMove = slideU();
+//     if (didMove) spawnRand()
+//   }
+
+//   if (e.key === "ArrowDown") {
+//     const didMove = slideD();
+//     if (didMove) spawnRand()
+//   }
+// });
+
+document.querySelectorAll(".grid-cell").forEach(x =>
+  x.addEventListener("click", () => {
+    const r = x.getAttribute("data-r");
+    const c = x.getAttribute("data-c");
+
+    if (grid[r][c]) return; // cell is occupied
+
+    grid[r][c] = new Cell(2, r, c);
+    setTimeout(() => {
+      slideOptions[nextDir]();
+      nextDir = randDir();
+      document.getElementById("direction-msg").innerHTML = nextDir
+
+      // shuffle(slideOptions);
+      // slideOptions[0]() || slideOptions[1]() || slideOptions[2]() || slideOptions[3]()
+    }, 0)
+  })
+)
+
+let nextDir = randDir();
+document.getElementById("direction-msg").innerHTML = nextDir
+
+const slideOptions = {
+  "LEFT": slideL,
+  "RIGHT": slideR,
+  "DOWN": slideD,
+  "UP": slideU,
 }
 
-render();
-
-
-window.addEventListener("keydown", e => {
-  if (e.key === "ArrowLeft") {
-    const didMove = slideL();
-    if (didMove) spawn()
-  }
-
-  if (e.key === "ArrowRight") {
-    const didMove = slideR();
-    if (didMove) spawn()
-  }
-
-  if (e.key === "ArrowUp") {
-    const didMove = slideU();
-    if (didMove) spawn()
-  }
-
-  if (e.key === "ArrowDown") {
-    const didMove = slideD();
-    if (didMove) spawn()
-  }
-})
+function randDir() {
+  return ["LEFT", "RIGHT", "DOWN", "UP"][Math.floor(Math.random() * 4)];
+}
 

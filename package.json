@@ -4,10 +4,11 @@
   "description": "GMTK Jam 2023",
   "main": "webpack.config.js",
   "scripts": {
-    "serve": "webpack serve",
+    "serve": "webpack serve --host 0.0.0.0",
     "dev": "webpack serve",
     "build": "webpack",
-    "build:prod": "webpack --mode=production"
+    "build:prod": "webpack --mode=production",
+    "prod": "webpack --mode=production"
   },
   "repository": {
     "type": "git",
@@ -23,5 +24,12 @@
     "webpack": "^5.88.1",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "css-loader": "^6.8.1",
+    "mini-css-extract-plugin": "^2.7.6",
+    "postcss": "^8.4.25",
+    "postcss-loader": "^7.3.3"
   }
 }
