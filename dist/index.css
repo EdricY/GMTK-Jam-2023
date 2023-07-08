@@ -1,0 +1,57 @@
+* {
+  box-sizing: border-box
+}
+
+#grid-container {
+  display: grid;
+  position: relative;
+  margin-inline: auto;
+  border-radius: 10px;
+  border: 10px solid black;
+  background-color: black;
+  gap: 10px;
+  width: 100%;
+  max-width: 500px;
+  min-width: 250px;
+  aspect-ratio: 1;
+  grid-template-columns: auto auto auto auto;
+}
+
+.grid-cell {
+  background-color: white;
+}
+
+.cell-inner {
+  animation: grow 0.1s;
+  transform-origin: center center;
+  position: absolute;
+  width: calc((100% - 10px * 3) / 4);
+  height: calc((100% - 10px * 3) / 4);
+
+  display: grid;
+  place-items: center;
+  font-size: 30px;
+  font-family: sans-serif;
+  font-weight: bold;
+  transition: all linear 0.1s;
+
+  background-color: rgb(69, 69, 179);
+  color: white;
+
+}
+
+@keyframes grow {
+  from {
+    scale: 0.5;
+  }
+
+  to {
+    scale: 1;
+  }
+}
+
+[data-val="2"] {
+  background-color: rgb(41, 41, 105);
+  /* background-color: red; */
+  color: white;
+}
