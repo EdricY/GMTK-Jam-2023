@@ -11,7 +11,22 @@
 
 <body>
   <div class="area">
-    <div id="direction-msg"></div>
+    <ul class="circles">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+    <!-- <div id="timer-outer">
+      <div id="timer"></div>
+    </div> -->
+
     <div id="grid-container">
       <button class="grid-cell" data-r="0" data-c="0"></button>
       <button class="grid-cell" data-r="0" data-c="1"></button>
@@ -30,18 +45,11 @@
       <button class="grid-cell" data-r="3" data-c="2"></button>
       <button class="grid-cell" data-r="3" data-c="3"></button>
     </div>
-    <ul class="circles">
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-    </ul>
+    <div id="direction-msg"></div>
+    <div class="queue-outer">
+      <div id="queue-container"></div>
+    </div>
+    
   </div>
 </body>
 <script src="./main.js"></script>
