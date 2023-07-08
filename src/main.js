@@ -17,7 +17,7 @@ const grid = [
 
 window.grid = grid;
 
-console.log(grid)
+console.log(grid);
 
 function spawnRand() {
   const empties = [];
@@ -65,11 +65,20 @@ document.querySelectorAll(".grid-cell").forEach(x =>
     if (!val) return;
     grid[r][c] = new Cell(val, r, c);
     setTimeout(() => {
-      slideOptions[nextDir](grid);
-      nextDir = randDir();
-      document.getElementById("direction-msg").innerHTML = nextDir
-      addToQueue(getRandEl([2,4,8]))
+      // slideOptions[nextDir]?.(grid);
+      // nextDir = randDir();
+      // document.getElementById("direction-msg").innerHTML = nextDir
+      // addToQueue(getRandEl([2, 4, 8]))
       
+      slideOptions[x.getAttribute("data-dir")]?.(grid);
+      addToQueue(getRandEl([2, 4, 8]))
+
+      document.querySelectorAll(".grid-cell").forEach(x =>
+        x.setAttribute("data-dir", getRandEl(["⬅️", "➡️", "⬇️", "⬆️", ""]))
+      )
+
+
+
       // shuffle(slideOptions);
       // slideOptions[0]() || slideOptions[1]() || slideOptions[2]() || slideOptions[3]()
     }, 0)
@@ -104,8 +113,16 @@ function randDir() {
 //   }
 // }
 
-addToQueue(getRandEl([2,4,8]))
-addToQueue(getRandEl([2,4,8]))
-addToQueue(getRandEl([2,4,8]))
+function init() {
+  document.querySelectorAll(".grid-cell").forEach(x =>
+    x.setAttribute("data-dir", getRandEl(["⬅️", "➡️", "⬇️", "⬆️", ""]))
+  )
+  
+  addToQueue(getRandEl([2, 4, 8]))
+  addToQueue(getRandEl([2, 4, 8]))
+  addToQueue(getRandEl([2, 4, 8]))
+}
+
+init();
 
 // timerRecurse();

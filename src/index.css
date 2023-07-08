@@ -58,6 +58,25 @@ html {
   justify-content: center;
 }
 
+.queue-cell:first-child {
+  animation: pulse 1s linear infinite;
+}
+
+@keyframes pulse {
+ 0% {
+  scale: 1;
+ } 
+ 25% {
+  scale: 1.05;
+ }
+ 75% {
+  scale: .95;
+ }
+ 100% {
+  scale: 1;
+ } 
+}
+
 .queue-cell {
   width: calc((100% - 10px * 3) / 4);
   aspect-ratio: 1 / 1;
@@ -71,9 +90,11 @@ html {
   border-radius: 20px;
   border: 4px solid white;
   user-select: none;
+  animation: grow .1s forwards;
 }
 
-.shrink {
+
+.queue-cell.shrink {
   animation: grow .1s reverse backwards;
 }
 
@@ -99,13 +120,38 @@ html {
   border: none;
   width: auto;
   height: auto;
-  display: block;
+  display: grid;
+  place-items: center center;
   background: rgb(66, 66, 134);
 
 }
 
 .grid-cell:focus {
   outline: none;
+}
+
+.grid-cell[data-dir="⬆️"]::after {
+  content: "⬆️";
+  font-size: 2rem;
+  position: absolute;
+}
+
+.grid-cell[data-dir="⬇️"]::after {
+  content: "⬇️";
+  font-size: 2rem;
+  position: absolute;
+}
+
+.grid-cell[data-dir="⬅️"]::after {
+  content: "⬅️";
+  font-size: 2rem;
+  position: absolute;
+}
+
+.grid-cell[data-dir="➡️"]::after {
+  content: "➡️";
+  font-size: 2rem;
+  position: absolute;
 }
 
 .cell-inner {
