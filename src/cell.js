@@ -30,6 +30,10 @@ export class Cell {
   }
 
   setDirty() {
-    setTimeout(() => this.div.remove(), 100)
+    setTimeout(() => this.remove(), 100)
+  }
+
+  remove() {
+    this.div.remove();
   }
 }

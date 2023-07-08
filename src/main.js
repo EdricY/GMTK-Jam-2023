@@ -3,21 +3,39 @@ import { Cell } from "./cell";
 import { slideL, slideR, slideU, slideD } from "./slide";
 import { startTimer } from "./timer";
 import { shuffle } from "./shuffle";
-import { addToQueue, popFromQueue, queue } from "./queue";
+import { addToQueue, popFromQueue, queue, resetQueue } from "./queue";
 import { getRandEl } from "./rand";
+import "./levels";
+import { levelDialog, levelManager } from "./levels";
 
 
 let gameOver = false;
+
+
 const grid = [
-  [null, new Cell(2, 0, 1), new Cell(2, 0, 2), null],
-  [new Cell(2, 1, 0), new Cell(2, 1, 1), new Cell(2, 1, 2), new Cell(2, 1, 3)],
-  [new Cell(2, 2, 0), new Cell(2, 2, 1), null, null],
+  [null, null, null, null],
+  [null, null, null, null],
+  [null, null, null, null],
   [null, null, null, null],
 ];
 
 window.grid = grid;
 
-console.log(grid);
+function detectWin() {
+  for (let r = 0; r < grid.length; r++) {
+    for (let c = 0; c < grid[0].length; c++) {
+      if (grid[r][c]?.val === 2048) return true;
+    }
+  }
+  return false;
+}
+
+function detectLose() {
+  if (dirQueue.length === 0) return true;
+  if (queue.length === 0) return true;
+  return false;
+}
+
 
 function spawnRand() {
   const empties = [];
@@ -35,22 +53,22 @@ function spawnRand() {
 
 // window.addEventListener("keydown", e => {
 //   if (e.key === "ArrowLeft") {
-//     const didMove = slideL();
+//     const didMove = slideL(grid);
 //     if (didMove) spawnRand()
 //   }
 
 //   if (e.key === "ArrowRight") {
-//     const didMove = slideR();
+//     const didMove = slideR(grid);
 //     if (didMove) spawnRand()
 //   }
 
 //   if (e.key === "ArrowUp") {
-//     const didMove = slideU();
+//     const didMove = slideU(grid);
 //     if (didMove) spawnRand()
 //   }
 
 //   if (e.key === "ArrowDown") {
-//     const didMove = slideD();
+//     const didMove = slideD(grid);
 //     if (didMove) spawnRand()
 //   }
 // });
@@ -65,28 +83,28 @@ document.querySelectorAll(".grid-cell").forEach(x =>
     if (!val) return;
     grid[r][c] = new Cell(val, r, c);
     setTimeout(() => {
-      // slideOptions[nextDir]?.(grid);
-      // nextDir = randDir();
-      // document.getElementById("direction-msg").innerHTML = nextDir
-      // addToQueue(getRandEl([2, 4, 8]))
-      
-      slideOptions[x.getAttribute("data-dir")]?.(grid);
-      addToQueue(getRandEl([2, 4, 8]))
-
-      document.querySelectorAll(".grid-cell").forEach(x =>
-        x.setAttribute("data-dir", getRandEl(["⬅️", "➡️", "⬇️", "⬆️", ""]))
-      )
+      const didSlide = slideOptions[dirQueue.shift()]?.(grid);
+      if (!levelManager.currentLevel) {
+        dirQueue.push(randDir());
+        addToQueue(getRandEl([2, 2, 4]));
+      }
+      document.getElementById("direction-queue").innerHTML =
+        dirQueue.map(x => `<div>${x}</div>`).join(",");
 
 
+      if (!levelManager.isClassicMode) {
+        if (didSlide && detectWin()) {
+          levelManager.setCurrentLevelSolved();
+          setTimeout(() => levelDialog.showModal(), 500)
+        } else if (detectLose()) {
+          
+        }
+      }
 
-      // shuffle(slideOptions);
-      // slideOptions[0]() || slideOptions[1]() || slideOptions[2]() || slideOptions[3]()
     }, 0)
   })
 )
 
-let nextDir = randDir();
-document.getElementById("direction-msg").innerHTML = nextDir
 
 const slideOptions = {
   "⬅️": slideL,
@@ -113,16 +131,56 @@ function randDir() {
 //   }
 // }
 
-function init() {
-  document.querySelectorAll(".grid-cell").forEach(x =>
-    x.setAttribute("data-dir", getRandEl(["⬅️", "➡️", "⬇️", "⬆️", ""]))
-  )
-  
-  addToQueue(getRandEl([2, 4, 8]))
-  addToQueue(getRandEl([2, 4, 8]))
-  addToQueue(getRandEl([2, 4, 8]))
+// document.querySelectorAll(".grid-cell").forEach(x =>
+//   x.setAttribute("data-dir", getRandEl(["⬅️", "➡️", "⬇️", "⬆️", ""]))
+// )
+
+let dirQueue = [];
+export function initClassic() {
+  for (let r = 0; r < grid.length; r++) {
+    for (let c = 0; c < grid[0].length; c++) {
+      if (grid[r][c]) grid[r][c].remove();
+      grid[r][c] = null;
+    }
+  }
+
+  spawnRand();
+  resetQueue()
+
+
+  addToQueue(getRandEl([2, 2, 4]));
+  addToQueue(getRandEl([2, 2, 4]));
+  addToQueue(getRandEl([2, 2, 4]));
+
+  dirQueue = [randDir(), randDir(), randDir(),];
+  document.getElementById("direction-queue").innerHTML =
+    dirQueue.map(x => `<div>${x}</div>`).join(",");
+
 }
 
-init();
+export function initLevel(startingGrid, queueVals, levelDirQueue) {
+  for (let r = 0; r < grid.length; r++) {
+    for (let c = 0; c < grid[0].length; c++) {
+      if (grid[r][c]) {
+        grid[r][c].remove();
+        grid[r][c] = null;
+
+      }
+      if (startingGrid[r][c]) {
+        grid[r][c] = new Cell(startingGrid[r][c], r, c);
+      }
+    }
+  }
+
+  resetQueue();
+  queueVals.forEach(x => addToQueue(x));
+  dirQueue = [...levelDirQueue];
+  document.getElementById("direction-queue").innerHTML =
+    dirQueue.map(x => `<div>${x}</div>`).join(",");
+}
+
+
+initClassic();
+
 
 // timerRecurse();

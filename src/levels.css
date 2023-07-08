@@ -1,0 +1,53 @@
+dialog {
+  width: 100%;
+  max-width: 500px;
+  min-width: 250px;
+  padding: 15px;
+  border: 4px solid black;
+  border-radius: 10px;
+  background-color: #fff9;
+}
+
+#level-btn {
+  animation: pulse 1s 5 linear;
+}
+
+#level-dialog-close-btn {
+  margin-left: auto;
+  margin-bottom: 10px;
+}
+
+.levels-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  justify-content: center;
+}
+
+.level-select-btn {
+  background-color: rgb(86, 86, 211);
+  aspect-ratio: 1 / 1;
+  width: calc(20% - 8px);
+  color: white;
+  border-radius: 20px;
+  border: 4px solid white;
+  font-size: 30px;
+  font-family: sans-serif;
+  cursor: pointer;
+  position: relative;
+}
+
+.level-select-btn.solved::after {
+  content: "✅";
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 0.8em;
+
+}
+
+@media screen and (max-width: 400px) {
+  .level-select-btn {
+    font-size: 20px;
+  }
+}

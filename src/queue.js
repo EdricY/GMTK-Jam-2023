@@ -1,8 +1,15 @@
 export const queue = [];
 const qDiv = document.getElementById("queue-container");
 
+export function resetQueue() {
+  while (queue.length) {
+    queue.pop();
+    qDiv.removeChild(qDiv.firstChild);
+  }
+}
+
 export function addToQueue(val) {
-  if (queue.length >= 4) return;
+  // if (queue.length >= 4) return;
   queue.unshift(val);
   const div = document.createElement("div");
   div.innerHTML = val;
