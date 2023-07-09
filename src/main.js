@@ -8,7 +8,7 @@ import { addToQueue, popFromQueue, queue, resetQueue } from "./queue";
 import { getRandEl } from "./rand";
 import "./levels";
 import { levelDialog, levelManager } from "./levels";
-
+import arrowSvg from "./arrow.svg"
 
 
 const grid = [
@@ -87,8 +87,7 @@ document.querySelectorAll(".grid-cell").forEach(x =>
         dirQueue.push(randDir());
         addToQueue(getRandEl([2, 2, 4]));
       }
-      document.getElementById("direction-queue").innerHTML =
-        dirQueue.map(x => `<div>${x}</div>`).join("");
+      renderDirQueue();
 
 
       if (!levelManager.isClassicMode) {
@@ -104,16 +103,27 @@ document.querySelectorAll(".grid-cell").forEach(x =>
   })
 )
 
+function renderDirQueue() {
+  document.getElementById("direction-queue").innerHTML =
+    dirQueue.map(x => `<div class="${x}">${arrowSvg}</div>`).join("");
+}
 
 const slideOptions = {
-  "⬅️": slideL,
-  "➡️": slideR,
-  "⬇️": slideD,
-  "⬆️": slideU,
+  "L": slideL,
+  "R": slideR,
+  "D": slideD,
+  "U": slideU,
 };
 
+const emojiToLetter = {
+  "⬅️": "L",
+  "➡️": "R",
+  "⬇️": "D",
+  "⬆️": "U",
+}
+
 function randDir() {
-  return getRandEl(["⬅️", "➡️", "⬇️", "⬆️"]);
+  return getRandEl(["L", "L", "R", "R", "D", "D", "D", "U"]);
 }
 
 // function timerRecurse() {
@@ -152,8 +162,7 @@ export function initClassic() {
   addToQueue(getRandEl([2, 2, 4]));
 
   dirQueue = [randDir(), randDir(), randDir(),];
-  document.getElementById("direction-queue").innerHTML =
-    dirQueue.map(x => `<div>${x}</div>`).join("");
+  renderDirQueue();
 
 }
 
@@ -173,9 +182,8 @@ export function initLevel(startingGrid, queueVals, levelDirQueue) {
 
   resetQueue();
   queueVals.forEach(x => addToQueue(x));
-  dirQueue = [...levelDirQueue];
-  document.getElementById("direction-queue").innerHTML =
-    dirQueue.map(x => `<div>${x}</div>`).join("");
+  dirQueue = levelDirQueue.map(x => emojiToLetter[x]);
+  renderDirQueue();
 }
 
 
