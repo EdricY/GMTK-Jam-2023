@@ -179,3 +179,4 @@ export function initLevel(startingGrid, queueVals, levelDirQueue) {
 }
 
 
+initClassic();

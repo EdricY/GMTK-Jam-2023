@@ -36,7 +36,7 @@ html {
 .outer-wrap {
   height: 100%;
   max-width: 100%;
-  aspect-ratio: 2/5;
+  aspect-ratio: 4/9;
   margin-inline: auto;
 }
 
@@ -149,7 +149,7 @@ html {
   aspect-ratio: 1 / 1;
   display: grid;
   place-items: center;
-  font-size: 30px;
+  font-size: 28px;
   font-family: sans-serif;
   font-weight: bold;
   background-color: rgb(86, 86, 211);
@@ -199,9 +199,17 @@ html {
 }
 
 @keyframes breathe {
-  0% { opacity: 1;}
-  50% { opacity: .8;}
-  100% { opacity: 1;}
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: .8;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 /* .grid-cell[data-dir="⬆️"]::after {
@@ -237,7 +245,7 @@ html {
 
   display: grid;
   place-items: center;
-  font-size: 30px;
+  font-size: 28px;
   font-family: sans-serif;
   font-weight: bold;
   transition: all linear 0.1s;
@@ -405,8 +413,11 @@ html {
 
 }
 
-@media screen and (max-width: 400px) {
-  .queue-cell, .cell-inner {
+@media screen and (max-width: 400px),
+screen and (max-height: 700px) {
+
+  .queue-cell,
+  .cell-inner {
     font-size: 20px;
     border-width: 3px;
   }
