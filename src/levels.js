@@ -53,7 +53,6 @@ document.querySelectorAll(".level-select-btn").forEach(x =>
   })
 );
 
-const NUM_LEVELS = 10;
 
 class LevelManager {
   _currentLevel = 0;
@@ -118,16 +117,6 @@ window.levelManager = levelManager
 
 
 const levelData = [null,
-  { //test
-    startingGrid: [
-      [2, 4, 8, 16],
-      [32, 64, 128, 256],
-      [512, 1024, 2048, null],
-      [null, null, null, null],
-    ],
-    queueVals: [1024],
-    levelDirQueue: ["⬅️"],
-  },
   { //1
     startingGrid: [
       [null, null, null, null],
@@ -230,4 +219,47 @@ const levelData = [null,
     queueVals: [128, 2, 2, 2, 2, 4],
     levelDirQueue: ["⬅️", "➡️", "⬇️", "⬅️", "⬅️", "⬅️"],
   },
+  { //11
+    startingGrid: [
+      [8, null, 256, 256],
+      [null, 128, 128, 4],
+      [null, 128, null, null],
+      [2, null, null, 4],
+    ],
+    queueVals: [128, 2, 256, 2, 256, 1024],
+    levelDirQueue: ["⬅️", "⬇️" ,"➡️" ,"⬇️", "⬆️", "⬅️"],
+  },
+  { //12
+    startingGrid: [
+      [null, null,null, 256],
+      [null, 64,64,null],
+      [null, 4, 512,null],
+      [null, null, null, null],
+    ],
+    queueVals: [2, 128, 4, 1024,8],
+    levelDirQueue: [ "⬅️","⬆️","➡️","⬇️","⬅️"],
+  }, 
+  { //13
+    startingGrid: [
+      [64, null,null, 32],
+      [2, 128,256, null],
+      [8,null, 8,64],
+      [1024, null, 512, null],
+    ],
+    queueVals: [ 256,4, 256, 2, 2],
+    levelDirQueue: [ "⬅️","⬆️", "⬇️","➡️","➡️"],
+  },
+  { //14
+    startingGrid: [
+      [null, 32,null, 32],
+      [32, 512,1024, 2],
+      [null,null, 512,null],
+      [32, null, null, null],
+    ],
+    queueVals: [ 32,64,128, 2],
+    levelDirQueue: [ "⬅️","⬆️", "⬇️","➡️"],
+  }
+  
 ]
+
+const NUM_LEVELS = levelData.length
