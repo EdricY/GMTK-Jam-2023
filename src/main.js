@@ -32,7 +32,13 @@ function detectWin() {
 function detectLose() {
   if (dirQueue.length === 0) return true;
   if (queue.length === 0) return true;
-  return false;
+  for (let r = 0; r < grid.length; r++) {
+    for (let c = 0; c < grid[0].length; c++) {
+      if (grid[r][c] === null) return false;
+    }
+  }
+
+  return true;
 }
 
 
@@ -85,18 +91,16 @@ document.querySelectorAll(".grid-cell").forEach(x =>
       const didSlide = slideOptions[dirQueue.shift()]?.(grid);
       if (!levelManager.currentLevel) {
         dirQueue.push(randDir());
-        addToQueue(getRandEl([2, 2, 4]));
+        addToQueue(randVal());
       }
       renderDirQueue();
 
 
-      if (!levelManager.isClassicMode) {
-        if (didSlide && detectWin()) {
-          levelManager.completeCurrentLevel();
+      if (!levelManager.isClassicMode && didSlide && detectWin()) {
+        levelManager.completeCurrentLevel();
 
-        } else if (detectLose()) {
-          document.getElementById("reset-btn").classList.add("pulse")
-        }
+      } else if (detectLose()) {
+        document.getElementById("reset-btn").classList.add("pulse")
       }
 
     }, 0)
@@ -126,6 +130,19 @@ function randDir() {
   return getRandEl(["L", "L", "R", "R", "D", "D", "D", "U"]);
 }
 
+function randVal() {
+  return getRandEl([
+    2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+    4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+    8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+    16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+    32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
+    64, 64, 64, 64, 64, 64, 64, 64,
+    128, 128, 128, 128,
+    256, 256,
+    512]);
+}
+
 // function timerRecurse() {
 //   if (!gameOver) {
 //     startTimer(() => {
@@ -145,6 +162,7 @@ function randDir() {
 // )
 
 let dirQueue = [];
+
 export function initClassic() {
   for (let r = 0; r < grid.length; r++) {
     for (let c = 0; c < grid[0].length; c++) {
@@ -157,9 +175,9 @@ export function initClassic() {
   resetQueue()
 
 
-  addToQueue(getRandEl([2, 2, 4]));
-  addToQueue(getRandEl([2, 2, 4]));
-  addToQueue(getRandEl([2, 2, 4]));
+  addToQueue(randVal());
+  addToQueue(randVal());
+  addToQueue(randVal());
 
   dirQueue = [randDir(), randDir(), randDir(),];
   renderDirQueue();

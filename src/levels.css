@@ -25,7 +25,7 @@
 }
 
 .level-select-btn {
-  background-color: rgb(86, 86, 211);
+  background-color: #355574;
   aspect-ratio: 1 / 1;
   width: calc(20% - 8px);
   color: white;
@@ -38,7 +38,7 @@
 }
 
 .level-select-btn.solved {
-  background-color: rgb(86, 187, 86);
+  background-color: rgb(71, 151, 71);
 }
 
 @media screen and (max-width: 400px) {

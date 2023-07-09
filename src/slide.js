@@ -1,3 +1,4 @@
+import { levelManager } from "./levels";
 
 export function slideL(grid) {
   let didMove = false;
@@ -14,6 +15,7 @@ export function slideL(grid) {
           mergedCell = grid[r][i];
           grid[r][i] = null;
           cell.val = cell.val + cell.val;
+          levelManager.score += cell.val;
           break;
         }
         if (grid[r][i]) break; // end of empty space
@@ -55,6 +57,7 @@ export function slideR(grid) {
           mergedCell = grid[r][i];
           grid[r][i] = null;
           cell.val = cell.val + cell.val;
+          levelManager.score += cell.val;
           break;
         }
         if (grid[r][i]) break; // end of empty space
@@ -96,6 +99,7 @@ export function slideU(grid) {
           mergedCell = grid[i][c];
           grid[i][c] = null;
           cell.val = cell.val + cell.val;
+          levelManager.score += cell.val;
           break;
         }
         if (grid[i][c]) break; // end of empty space
@@ -137,6 +141,7 @@ export function slideD(grid) {
           mergedCell = grid[i][c];
           grid[i][c] = null;
           cell.val = cell.val + cell.val;
+          levelManager.score += cell.val;
           break;
         }
         if (grid[i][c]) break; // end of empty space
