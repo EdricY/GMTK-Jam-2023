@@ -62,17 +62,33 @@ dialog {
   /* rotate: 180deg; */
   height: 100%;
   max-width: 100%;
-  aspect-ratio: 435/870;
+  aspect-ratio: 1/2;
   margin-inline: auto;
 }
 
 
-#title {
+.title-outer {
+  width: 100%;
+  max-width: 450px;
+  min-width: 250px;
+  margin-inline: auto;
   color: white;
   font-family: sans-serif;
   font-size: 30px;
   text-align: center;
   padding-bottom: 10px;
+  position: relative;
+}
+
+#score-box {
+  font-size: 12px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.hidden {
+  display: none;
 }
 
 .btn {
@@ -124,8 +140,8 @@ dialog {
   justify-content: center;
 }
 
-#direction-queue>.arrow-svg:first-child {
-  animation: pulse 1s linear infinite;
+#direction-queue>div:first-child {
+  animation: pulse-big 1s linear infinite;
 }
 
 .pulse {
@@ -165,6 +181,24 @@ dialog {
 
   75% {
     scale: .95;
+  }
+
+  100% {
+    scale: 1;
+  }
+}
+
+@keyframes pulse-big {
+  0% {
+    scale: 1;
+  }
+
+  25% {
+    scale: 1.1;
+  }
+
+  75% {
+    scale: .90;
   }
 
   100% {
@@ -221,7 +255,7 @@ dialog {
   display: grid;
   place-items: center center;
   background: rgb(66, 66, 134);
-  animation: breathe 2s 5;
+  animation: breathe 3s infinite;
 }
 
 .grid-cell:focus {
@@ -359,6 +393,7 @@ dialog {
 
 .area {
   /* rotate: 180deg; */
+  flex: 1;
   display: flow-root;
   background: #3b409e;
   background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
