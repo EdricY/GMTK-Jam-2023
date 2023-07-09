@@ -1,4 +1,5 @@
 import "./index.css";
+import "./win.css";
 import { Cell } from "./cell";
 import { slideL, slideR, slideU, slideD } from "./slide";
 import { startTimer } from "./timer";
@@ -8,8 +9,6 @@ import { getRandEl } from "./rand";
 import "./levels";
 import { levelDialog, levelManager } from "./levels";
 
-
-let gameOver = false;
 
 
 const grid = [
@@ -89,15 +88,15 @@ document.querySelectorAll(".grid-cell").forEach(x =>
         addToQueue(getRandEl([2, 2, 4]));
       }
       document.getElementById("direction-queue").innerHTML =
-        dirQueue.map(x => `<div>${x}</div>`).join(",");
+        dirQueue.map(x => `<div>${x}</div>`).join("");
 
 
       if (!levelManager.isClassicMode) {
         if (didSlide && detectWin()) {
-          levelManager.setCurrentLevelSolved();
-          setTimeout(() => levelDialog.showModal(), 500)
+          levelManager.completeCurrentLevel();
+
         } else if (detectLose()) {
-          
+          document.getElementById("reset-btn").classList.add("pulse")
         }
       }
 
@@ -154,7 +153,7 @@ export function initClassic() {
 
   dirQueue = [randDir(), randDir(), randDir(),];
   document.getElementById("direction-queue").innerHTML =
-    dirQueue.map(x => `<div>${x}</div>`).join(",");
+    dirQueue.map(x => `<div>${x}</div>`).join("");
 
 }
 
@@ -176,11 +175,7 @@ export function initLevel(startingGrid, queueVals, levelDirQueue) {
   queueVals.forEach(x => addToQueue(x));
   dirQueue = [...levelDirQueue];
   document.getElementById("direction-queue").innerHTML =
-    dirQueue.map(x => `<div>${x}</div>`).join(",");
+    dirQueue.map(x => `<div>${x}</div>`).join("");
 }
 
 
-initClassic();
-
-
-// timerRecurse();

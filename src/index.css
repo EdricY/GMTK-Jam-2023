@@ -8,6 +8,7 @@ html {
   height: 100%;
 }
 
+
 .mr-auto {
   margin-right: auto;
 }
@@ -23,7 +24,7 @@ html {
 .button-row {
   position: relative;
   width: 100%;
-  max-width: 500px;
+  max-width: 450px;
   min-width: 250px;
   margin-inline: auto;
   display: flex;
@@ -35,7 +36,7 @@ html {
 .outer-wrap {
   height: 100%;
   max-width: 100%;
-  aspect-ratio: 1/2;
+  aspect-ratio: 2/5;
   margin-inline: auto;
 }
 
@@ -61,7 +62,7 @@ html {
 
 #timer-outer {
   width: 100%;
-  max-width: 500px;
+  max-width: 450px;
   min-width: 250px;
   height: 2rem;
   margin-top: 20px;
@@ -83,6 +84,7 @@ html {
 }
 
 #direction-queue {
+  max-width: 300px;
   font-size: 3rem;
   text-align: center;
   color: white;
@@ -95,14 +97,17 @@ html {
 
 #direction-queue>div:first-child {
   animation: pulse 1s linear infinite;
+}
 
+.pulse {
+  animation: pulse 1s linear infinite;
 }
 
 .queue-outer {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 500px;
+  max-width: 450px;
   min-width: 250px;
   margin-inline: auto;
   margin-block: 10px;
@@ -170,7 +175,7 @@ html {
   background-color: black;
   gap: 10px;
   width: 100%;
-  max-width: 500px;
+  max-width: 450px;
   min-width: 250px;
   aspect-ratio: 1;
   grid-template-columns: auto auto auto auto;

@@ -1,9 +1,12 @@
 import "./levels.css"
 import { initClassic, initLevel as initLevelMain } from "./main";
 export const levelDialog = document.getElementById("level-dialog")
+const winDialog = document.getElementById("win-dialog")
+const creditsDialog = document.getElementById("credits-dialog")
 
 document.getElementById("reset-btn").addEventListener("click", () => {
   levelManager.initLevel();
+  document.getElementById("reset-btn").classList.remove("pulse")
 });
 
 
@@ -15,12 +18,25 @@ document.getElementById("level-dialog-close-btn").addEventListener("click", () =
   levelDialog.close();
 })
 
+document.getElementById("close-credits-btn").addEventListener("click", () => {
+  creditsDialog.close();
+  levelManager.currentLevel = 0;
+  initClassic();
+})
+
 document.getElementById("classic-btn").addEventListener("click", () => {
   if (levelManager.currentLevel === 0) return;
   levelManager.currentLevel = 0;
   initClassic();
+})
+
+document.getElementById("next-level-btn").addEventListener("click", () => {
+  winDialog.close();
+  levelManager.goToNextLevel();
 
 })
+
+
 
 
 document.querySelectorAll(".level-select-btn").forEach(x =>
@@ -35,6 +51,7 @@ document.querySelectorAll(".level-select-btn").forEach(x =>
   })
 );
 
+const NUM_LEVELS = 10;
 
 class LevelManager {
   _currentLevel = 0;
@@ -68,13 +85,27 @@ class LevelManager {
     initLevelMain(currentLevelData.startingGrid, currentLevelData.queueVals, currentLevelData.levelDirQueue)
   }
 
-  setCurrentLevelSolved() {
-    this.setLevelSolved(this.currentLevel)
+  completeCurrentLevel() {
+    this.setLevelSolved(this.currentLevel);
+    if (this.currentLevel === NUM_LEVELS) {
+      creditsDialog.showModal();
+    } else {
+      winDialog.showModal();
+    }
+
+
   }
   setLevelSolved(level) {
     this.solvedLevels.add(level);
     document.querySelector(`.level-select-btn[data-val="${level}"]`)
       .classList.add("solved")
+  }
+
+  goToNextLevel() {
+    if (this.currentLevel < NUM_LEVELS) {
+      this.currentLevel = this.currentLevel + 1;
+      this.initLevel()
+    }
   }
 
 }
@@ -84,7 +115,7 @@ window.levelManager = levelManager
 
 
 const levelData = [null,
-  {
+  { //1
     startingGrid: [
       [null, null, null, null],
       [null, null, 1024, null],
@@ -93,5 +124,97 @@ const levelData = [null,
     ],
     queueVals: [1024],
     levelDirQueue: ["⬅️"],
-  }
+  },
+  { //2
+    startingGrid: [
+      [null, null, null, null],
+      [null, null, null, 512],
+      [null, null, null, null],
+      [null, 512, null, 512],
+    ],
+    queueVals: [512, 2],
+    levelDirQueue: ["⬅️", "⬇️"],
+  },
+
+  { //3
+    startingGrid: [
+      [2, 4, null, 256],
+      [2, 2, null, null],
+      [2, 512, null, null],
+      [4, 512, null, 512],
+    ],
+    queueVals: [256, 2, 2],
+    levelDirQueue: ["⬆️", "⬇️", "➡️",],
+  },
+
+  { //4
+    startingGrid: [
+      [256, null, null, 512],
+      [null, null, null, null],
+      [512, 256, null, null],
+      [null, null, null, null],
+    ],
+    queueVals: [512, 2, 2, 2],
+    levelDirQueue: ["➡️", "⬆️", "⬅️", "⬅️"],
+  },
+  { //5
+    startingGrid: [
+      [128, 128, 128, 128],
+      [128, 128, 128, 128],
+      [128, 128, 128, 128],
+      [128, 128, 128, null],
+    ],
+    queueVals: [128, 2, 4, 2],
+    levelDirQueue: ["➡️", "⬆️", "⬅️", "⬇️"],
+  },
+  { //6
+    startingGrid: [
+      [512, 512, 2, null],
+      [null, null, 2, 2],
+      [null, null, 2, 2],
+      [16, 16, null, null],
+    ],
+    queueVals: [2, 2, 2, 1024],
+    levelDirQueue: ["⬇️", "⬇️", "⬅️", "⬅️"],
+  },
+  { //7
+    startingGrid: [
+      [8, 2, 2, 8],
+      [2, 2, 2, 2],
+      [4, null, null, 4],
+      [1024, 2, 2, 1024],
+    ],
+    queueVals: [2, 2, 2, 2],
+    levelDirQueue: ["⬅️", "➡️", "⬆️", "⬅️"],
+  },
+  { //8
+    startingGrid: [
+      [256, null, null, null],
+      [null, 2, null, null],
+      [null, 16, 2, 512],
+      [1024, 16, 4, 4],
+    ],
+    queueVals: [256, 2, 512, 1024],
+    levelDirQueue: ["⬅️", "⬆️", "⬅️", "⬆️"],
+  },
+  { //9
+    startingGrid: [
+      [1024, 8, null, 1024],
+      [2, 4, null, 2],
+      [4, 8, null, 4],
+      [null, null, null, null],
+    ],
+    queueVals: [8, 8, 2],
+    levelDirQueue: ["⬅️", "⬇️", "⬅️"],
+  },
+  { //10
+    startingGrid: [
+      [1024, 512, 256, 128],
+      [2, 4, null, null],
+      [4, null, null, null],
+      [2, null, null, null],
+    ],
+    queueVals: [128, 2, 2, 2, 2, 4],
+    levelDirQueue: ["⬅️", "➡️", "⬇️", "⬅️", "⬅️", "⬅️"],
+  },
 ]

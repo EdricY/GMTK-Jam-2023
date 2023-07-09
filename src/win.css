@@ -1,0 +1,44 @@
+
+#win-dialog, #credits-dialog {
+  text-align: center;
+  border-radius: 10px;
+  background-color: #fff;
+  color: black;
+
+}
+
+.win-msg {
+  font-size: 30px;
+  font-family: sans-serif;
+  padding: 30px;
+}
+
+#win-dialog[open], #credits-dialog[open] {
+  animation: fade-in 300ms forwards;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  #win-dialog[open], #credits-dialog[open] {
+    animation: slide-up 1000ms forwards, fade-in 1000ms forwards;
+  }
+
+  @keyframes slide-up {
+    0% {
+      transform: translateY(10%);
+    }
+
+    100% {
+      transform: translateY(0%);
+    }
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
