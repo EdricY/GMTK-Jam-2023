@@ -5,9 +5,168 @@
   box-sizing: border-box
 }
 
-body, html {
+body,
+html {
   margin: 0;
   height: 100%;
+}
+
+.mr-auto {
+  margin-right: auto;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+
+.flex {
+  display: flex;
+}
+
+.button-row {
+  position: relative;
+  width: 100%;
+  max-width: 450px;
+  min-width: 250px;
+  margin-inline: auto;
+  display: flex;
+  justify-content: flex-end;
+  padding-block: 20px;
+  gap: 10px;
+}
+
+.outer-wrap {
+  height: 100%;
+  max-width: 100%;
+  aspect-ratio: 2/5;
+  margin-inline: auto;
+}
+
+
+#title {
+  color: white;
+  font-family: sans-serif;
+  font-size: 30px;
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+.btn {
+  font-family: sans-serif;
+  font-size: 18px;
+  padding: 10px;
+  border: 4px solid black;
+  border-radius: 10px;
+  background-color: rgb(53, 53, 134);
+  color: white;
+  cursor: pointer;
+}
+
+#timer-outer {
+  width: 100%;
+  max-width: 450px;
+  min-width: 250px;
+  height: 2rem;
+  margin-top: 20px;
+  margin-inline: auto;
+  border: 5px solid black;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+#timer {
+  height: 100%;
+  width: 100%;
+  background-color: red;
+}
+
+#timer.ticking {
+  width: 0;
+  transition: width 5s 2s linear;
+}
+
+#direction-queue {
+  max-width: 300px;
+  font-size: 3rem;
+  text-align: center;
+  color: white;
+  font-family: sans-serif;
+  display: flex;
+  flex-flow: row wrap;
+  margin-inline: auto;
+  justify-content: center;
+}
+
+#direction-queue>div:first-child {
+  animation: pulse 1s linear infinite;
+}
+
+.pulse {
+  animation: pulse 1s linear infinite;
+}
+
+.queue-outer {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 450px;
+  min-width: 250px;
+  margin-inline: auto;
+  margin-block: 10px;
+  height: auto;
+  border: 10px solid transparent;
+}
+
+#queue-container {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.queue-cell:first-child {
+  animation: pulse 1s linear infinite;
+}
+
+@keyframes pulse {
+  0% {
+    scale: 1;
+  }
+
+  25% {
+    scale: 1.05;
+  }
+
+  75% {
+    scale: .95;
+  }
+
+  100% {
+    scale: 1;
+  }
+}
+
+.queue-cell {
+  width: calc((100% - 10px * 3) / 4);
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+  font-size: 30px;
+  font-family: sans-serif;
+  font-weight: bold;
+  background-color: rgb(86, 86, 211);
+  color: white;
+  border-radius: 20px;
+  border: 4px solid white;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  animation: grow .1s forwards;
+}
+
+
+.queue-cell.shrink {
+  animation: grow .1s reverse backwards;
 }
 
 #grid-container {
@@ -20,26 +179,58 @@ body, html {
   background-color: black;
   gap: 10px;
   width: 100%;
-  max-width: 500px;
+  max-width: 450px;
   min-width: 250px;
   aspect-ratio: 1;
   grid-template-columns: auto auto auto auto;
 }
 
 .grid-cell {
+  cursor: pointer;
   padding: 0;
   margin: 0;
   border: none;
   width: auto;
   height: auto;
-  display: block;
+  display: grid;
+  place-items: center center;
   background: rgb(66, 66, 134);
-
+  animation: breathe 2s 5;
 }
 
 .grid-cell:focus {
   outline: none;
 }
+
+@keyframes breathe {
+  0% { opacity: 1;}
+  50% { opacity: .8;}
+  100% { opacity: 1;}
+}
+
+/* .grid-cell[data-dir="⬆️"]::after {
+  content: "⬆️";
+  font-size: 2rem;
+  position: absolute;
+}
+
+.grid-cell[data-dir="⬇️"]::after {
+  content: "⬇️";
+  font-size: 2rem;
+  position: absolute;
+}
+
+.grid-cell[data-dir="⬅️"]::after {
+  content: "⬅️";
+  font-size: 2rem;
+  position: absolute;
+}
+
+.grid-cell[data-dir="➡️"]::after {
+  content: "➡️";
+  font-size: 2rem;
+  position: absolute;
+} */
 
 .cell-inner {
   animation: grow 0.1s;
@@ -98,6 +289,7 @@ body, html {
 /* background */
 
 .area {
+  display: flow-root;
   background: #4e54c8;
   background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
   width: 100%;
@@ -217,4 +409,110 @@ body, html {
     border-radius: 50%;
   }
 
+}
+
+@media screen and (max-width: 400px) {
+  .queue-cell, .cell-inner {
+    font-size: 20px;
+    border-width: 3px;
+  }
+}
+/*!*********************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js!./src/win.css ***!
+  \*********************************************************************************************************/
+
+#win-dialog {
+  text-align: center;
+}
+
+.win-msg {
+  font-size: 30px;
+  font-family: sans-serif;
+  padding: 30px;
+}
+
+#win-dialog[open] {
+  animation: fade-in 300ms forwards;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  #win-dialog[open] {
+    animation: slide-up 1000ms forwards, fade-in 1000ms forwards;
+  }
+
+  @keyframes slide-up {
+    0% {
+      transform: translateY(10%);
+    }
+
+    100% {
+      transform: translateY(0%);
+    }
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+/*!************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js!./src/levels.css ***!
+  \************************************************************************************************************/
+#level-dialog {
+  width: 100%;
+  max-width: 500px;
+  min-width: 250px;
+  padding: 15px;
+  border: 4px solid black;
+  border-radius: 10px;
+  background-color: #fff9;
+}
+
+#level-btn {
+  animation: pulse 1s 5 linear;
+}
+
+#level-dialog-close-btn {
+  margin-left: auto;
+  margin-bottom: 10px;
+}
+
+.levels-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  justify-content: center;
+}
+
+.level-select-btn {
+  background-color: rgb(86, 86, 211);
+  aspect-ratio: 1 / 1;
+  width: calc(20% - 8px);
+  color: white;
+  border-radius: 20px;
+  border: 4px solid white;
+  font-size: 30px;
+  font-family: sans-serif;
+  cursor: pointer;
+  position: relative;
+}
+
+.level-select-btn.solved::after {
+  content: "✅";
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 0.8em;
+
+}
+
+@media screen and (max-width: 400px) {
+  .level-select-btn {
+    font-size: 20px;
+  }
 }

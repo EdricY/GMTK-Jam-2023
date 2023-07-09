@@ -11,25 +11,6 @@
 
 <body>
   <div class="area">
-    <div id="direction-msg"></div>
-    <div id="grid-container">
-      <button class="grid-cell" data-r="0" data-c="0"></button>
-      <button class="grid-cell" data-r="0" data-c="1"></button>
-      <button class="grid-cell" data-r="0" data-c="2"></button>
-      <button class="grid-cell" data-r="0" data-c="3"></button>
-      <button class="grid-cell" data-r="1" data-c="0"></button>
-      <button class="grid-cell" data-r="1" data-c="1"></button>
-      <button class="grid-cell" data-r="1" data-c="2"></button>
-      <button class="grid-cell" data-r="1" data-c="3"></button>
-      <button class="grid-cell" data-r="2" data-c="0"></button>
-      <button class="grid-cell" data-r="2" data-c="1"></button>
-      <button class="grid-cell" data-r="2" data-c="2"></button>
-      <button class="grid-cell" data-r="2" data-c="3"></button>
-      <button class="grid-cell" data-r="3" data-c="0"></button>
-      <button class="grid-cell" data-r="3" data-c="1"></button>
-      <button class="grid-cell" data-r="3" data-c="2"></button>
-      <button class="grid-cell" data-r="3" data-c="3"></button>
-    </div>
     <ul class="circles">
       <li></li>
       <li></li>
@@ -42,6 +23,81 @@
       <li></li>
       <li></li>
     </ul>
+    <!-- <div id="timer-outer">
+      <div id="timer"></div>
+    </div> -->
+    <div class="outer-wrap">
+
+      <div class="button-row">
+        <button class="btn mr-auto" id="reset-btn">Reset</button>
+        <button class="btn" id="classic-btn">Classic <span class="sm:hide">Mode</span></button>
+        <button class="btn" id="level-btn">Levels</button>
+      </div>
+      <div id="title">Classic Mode</div>
+
+
+      <div id="grid-container">
+        <button class="grid-cell" style="animation-delay: 0.0s;" data-r="0" data-c="0"></button>
+        <button class="grid-cell" style="animation-delay: 0.1s;" data-r="0" data-c="1"></button>
+        <button class="grid-cell" style="animation-delay: 0.2s;" data-r="0" data-c="2"></button>
+        <button class="grid-cell" style="animation-delay: 0.3s;" data-r="0" data-c="3"></button>
+        <button class="grid-cell" style="animation-delay: 0.1s;" data-r="1" data-c="0"></button>
+        <button class="grid-cell" style="animation-delay: 0.2s;" data-r="1" data-c="1"></button>
+        <button class="grid-cell" style="animation-delay: 0.3s;" data-r="1" data-c="2"></button>
+        <button class="grid-cell" style="animation-delay: 0.4s;" data-r="1" data-c="3"></button>
+        <button class="grid-cell" style="animation-delay: 0.2s;" data-r="2" data-c="0"></button>
+        <button class="grid-cell" style="animation-delay: 0.3s;" data-r="2" data-c="1"></button>
+        <button class="grid-cell" style="animation-delay: 0.4s;" data-r="2" data-c="2"></button>
+        <button class="grid-cell" style="animation-delay: 0.5s;" data-r="2" data-c="3"></button>
+        <button class="grid-cell" style="animation-delay: 0.3s;" data-r="3" data-c="0"></button>
+        <button class="grid-cell" style="animation-delay: 0.4s;" data-r="3" data-c="1"></button>
+        <button class="grid-cell" style="animation-delay: 0.5s;" data-r="3" data-c="2"></button>
+        <button class="grid-cell" style="animation-delay: 0.6s;" data-r="3" data-c="3"></button>
+      </div>
+      <div id="direction-queue"></div>
+      <div class="queue-outer">
+        <div id="queue-container"></div>
+      </div>
+    </div>
+
+    <dialog id="level-dialog">
+      <div class="flex">
+        <button id="level-dialog-close-btn" class="btn">Close</button>
+      </div>
+      <div class="levels-wrap">
+        <button class="level-select-btn" data-val="1">1</button>
+        <button class="level-select-btn" data-val="2">2</button>
+        <button class="level-select-btn" data-val="3">3</button>
+        <button class="level-select-btn" data-val="4">4</button>
+        <button class="level-select-btn" data-val="5">5</button>
+        <button class="level-select-btn" data-val="6">6</button>
+        <button class="level-select-btn" data-val="7">7</button>
+        <button class="level-select-btn" data-val="8">8</button>
+        <button class="level-select-btn" data-val="9">9</button>
+        <button class="level-select-btn" data-val="10">10</button>
+      </div>
+    </dialog>
+
+    
+    <dialog id="win-dialog">
+      <div class="win-msg">
+        Well Done!
+      </div>
+      <div>
+        <button class="btn" id="next-level-btn">Next Level</button>
+      </div>
+    </dialog>
+
+    <dialog id="credits-dialog">
+      <div class="win-msg">
+        Thanks for Playing!
+      </div>
+      <div>
+        <button class="btn" id="close-credits-btn">Close</button>
+      </div>
+    </dialog>
+
+
   </div>
 </body>
 <script src="./main.js"></script>
