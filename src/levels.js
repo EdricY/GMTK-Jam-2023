@@ -23,13 +23,13 @@ document.getElementById("level-dialog-close-btn").addEventListener("click", () =
 document.getElementById("close-credits-btn").addEventListener("click", () => {
   creditsDialog.close();
   levelManager.currentLevel = 0;
-  initClassic();
+  levelManager.initLevel();
 })
 
 document.getElementById("classic-btn").addEventListener("click", () => {
   if (levelManager.currentLevel === 0) return;
   levelManager.currentLevel = 0;
-  initClassic();
+  levelManager.initLevel();
 })
 
 document.getElementById("next-level-btn").addEventListener("click", () => {
@@ -103,6 +103,8 @@ class LevelManager {
     this.setLevelSolved(this.currentLevel);
     if (this.currentLevel === NUM_LEVELS) {
       creditsDialog.showModal();
+      winsfx.currentTime = 0;
+      winsfx.play();
     } else {
       winDialog.showModal();
       winsfx.currentTime = 0;
@@ -203,77 +205,18 @@ const levelData = [null,
     queueVals: [2, 2, 2, 2],
     levelDirQueue: ["⬅️", "➡️", "⬆️", "⬅️"],
   },
-  { //8
+  { //8 easy
     startingGrid: [
-      [256, null, null, null],
-      [null, 2, null, null],
-      [null, 16, 2, 512],
-      [512, 16, 4, 4],
-    ],
-    queueVals: [256, 2, 512, 1024],
-    levelDirQueue: ["⬅️", "⬆️", "⬅️", "⬆️"],
-  },
-  { //9
-    startingGrid: [
-      [1024, 8, null, 1024],
-      [2, 4, null, 2],
-      [4, 8, null, 4],
       [null, null, null, null],
-    ],
-    queueVals: [8, 8, 2],
-    levelDirQueue: ["⬅️", "⬇️", "⬅️"],
-  },
-  { //10
-    startingGrid: [
-      [1024, 512, 256, 128],
-      [2, 4, null, null],
-      [4, null, null, null],
-      [2, null, null, null],
-    ],
-    queueVals: [128, 2, 2, 2, 2, 4],
-    levelDirQueue: ["⬅️", "➡️", "⬇️", "⬅️", "⬅️", "⬅️"],
-  },
-  { //11
-    startingGrid: [
-      [8, null, 256, 256],
-      [null, 128, 128, 4],
-      [null, 128, null, null],
-      [2, null, null, 4],
-    ],
-    queueVals: [128, 2, 256, 2, 256, 1024],
-    levelDirQueue: ["⬅️", "⬇️", "➡️", "⬇️", "⬆️", "⬅️"],
-  },
-  { //12 easy clean
-    startingGrid: [
-      [null, null, null, 256],
-      [null, 64, 64, null],
-      [null, 4, 512, null],
       [null, null, null, null],
+      [null, null, null, null],
+      [4, 1024, 64, 512],
     ],
-    queueVals: [2, 128, 4, 1024, 8],
-    levelDirQueue: ["⬅️", "⬆️", "➡️", "⬇️", "⬅️"],
+    queueVals: [32, 512, 2, 2],
+    levelDirQueue: ["⬆️", "⬇️", "➡️", "⬅️"],
   },
-  { //13 easy
-    startingGrid: [
-      [64, null, null, 32],
-      [2, 128, 256, null],
-      [8, null, 8, 64],
-      [1024, null, 512, null],
-    ],
-    queueVals: [256, 4, 256, 2, 2],
-    levelDirQueue: ["⬅️", "⬆️", "⬇️", "➡️", "➡️"],
-  },
-  { //14 easy
-    startingGrid: [
-      [null, 32, null, 32],
-      [32, 512, 1024, 2],
-      [null, null, 512, null],
-      [32, null, null, null],
-    ],
-    queueVals: [32, 64, 128, 2],
-    levelDirQueue: ["⬅️", "⬆️", "⬇️", "➡️"],
-  },
-  { //15 easy
+
+  { //9 easy
     startingGrid: [
       [256, null, null, 256],
       [null, 512, null, null],
@@ -283,6 +226,67 @@ const levelData = [null,
     queueVals: [2, 2, 2],
     levelDirQueue: ["➡️", "⬆️", "⬆️"],
   },
+  { //10 easy clean
+    startingGrid: [
+      [null, null, null, 256],
+      [null, 64, 64, null],
+      [null, 4, 512, null],
+      [null, null, null, null],
+    ],
+    queueVals: [2, 128, 4, 1024, 8],
+    levelDirQueue: ["⬅️", "⬆️", "➡️", "⬇️", "⬅️"],
+  },
+  { //11
+    startingGrid: [
+      [1024, 512, 256, 128],
+      [2, 4, null, null],
+      [4, null, null, null],
+      [2, null, null, null],
+    ],
+    queueVals: [128, 2, 2, 2, 2, 4],
+    levelDirQueue: ["⬅️", "➡️", "⬇️", "⬅️", "⬅️", "⬅️"],
+  },
+  { //12 easy
+    startingGrid: [
+      [64, null, null, 32],
+      [2, 128, 256, null],
+      [8, null, 8, 64],
+      [1024, null, 512, null],
+    ],
+    queueVals: [256, 4, 256, 2, 2],
+    levelDirQueue: ["⬅️", "⬆️", "⬇️", "➡️", "➡️"],
+  },
+  { //13 messy
+    startingGrid: [
+      [16, 512, 1024, 4],
+      [null, 8, 4, 64],
+      [null, 4, 8, 32],
+      [null, null, 8, 128],
+    ],
+    queueVals: [2, 4, 32, 512, 2],
+    levelDirQueue: ["⬆️", "⬅️", "⬇️", "⬆️", "➡️"],
+  },
+  { //14
+    startingGrid: [
+      [1024, 8, null, 1024],
+      [2, 4, null, 2],
+      [4, 8, null, 4],
+      [null, null, null, null],
+    ],
+    queueVals: [8, 8, 2],
+    levelDirQueue: ["⬅️", "⬇️", "⬅️"],
+  },
+  { //15 easy
+    startingGrid: [
+      [null, 32, null, 32],
+      [32, 512, 1024, 2],
+      [null, null, 512, null],
+      [32, null, null, null],
+    ],
+    queueVals: [32, 64, 128, 2],
+    levelDirQueue: ["⬅️", "⬆️", "⬇️", "➡️"],
+  },
+
   { //16 easy
     startingGrid: [
       [64, 128, null, null],
@@ -304,17 +308,17 @@ const levelData = [null,
     queueVals: [32, 2, 1024, 2, 2, 2],
     levelDirQueue: ["➡️", "⬇️", "➡️", "⬇️", "⬅️", "⬇️"],
   },
-
-  { //18 easy
+  { //18
     startingGrid: [
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [4, 1024, 64, 512],
+      [256, null, null, null],
+      [null, 2, null, null],
+      [null, 16, 2, 512],
+      [512, 16, 4, 4],
     ],
-    queueVals: [32, 512, 2, 2],
-    levelDirQueue: ["⬆️", "⬇️", "➡️", "⬅️"],
+    queueVals: [256, 2, 512, 1024],
+    levelDirQueue: ["⬅️", "⬆️", "⬅️", "⬆️"],
   },
+
   { //19 good
     startingGrid: [
       [128, null, 128, null],
@@ -327,12 +331,12 @@ const levelData = [null,
   },
   { //20 easy good
     startingGrid: [
-      [1024, 8, null, 1024],
-      [4, 4, null, null],
-      [null, 8, null, null],
+      [1024, 16, null, 1024],
+      [8, 8, null, null],
+      [null, 16, null, null],
       [null, null, null, null],
     ],
-    queueVals: [2, 2, 4, 4, 8, 8],
+    queueVals: [4, 4, 8, 8, 16, 16],
     levelDirQueue: ["⬆️", "⬆️", "⬆️", "⬆️", "⬇️", "➡️"],
   },
   { //21 good
@@ -355,16 +359,38 @@ const levelData = [null,
     queueVals: [8, 512, 256, 2, 2],
     levelDirQueue: ["⬆️", "⬇️", "➡️", "⬇️", "⬅️"],
   },
-  { //23 good medium
+
+
+  { //23 good enough
     startingGrid: [
-      [128, null, null, null],
-      [64, null, null, 4],
-      [64, null, null, 2],
-      [512, null, null, 512],
+      [128, null, 64, null],
+      [null, 64, null, 64],
+      [64, null, 128, null],
+      [null, 64, null, 64],
     ],
-    queueVals: [8, 512, 256, 2, 2],
-    levelDirQueue: ["⬆️", "⬇️", "➡️", "⬇️", "⬅️"],
+    queueVals: [64, 512, 256, 64, 1024, 2],
+    levelDirQueue: ["⬆️", "⬇️", "➡️", "⬇️", "⬅️", "⬆️"],
+  },
+  { //24 hardish
+    startingGrid: [
+      [8, null, 256, 256],
+      [null, 128, 128, 4],
+      [null, 128, null, null],
+      [2, null, null, 4],
+    ],
+    queueVals: [128, 2, 256, 2, 256, 1024],
+    levelDirQueue: ["⬅️", "⬇️", "➡️", "⬇️", "⬆️", "⬅️"],
+  },
+  { //25 good
+    startingGrid: [
+      [4, 128, null, 64],
+      [1024, 512, 128, 64],
+      [256, 4, 8, null],
+      [null, null, 2, 2],
+    ],
+    queueVals: [128, 4, 32, 256, 2, 2, 1024],
+    levelDirQueue: ["⬆️", "⬇️", "➡️", "⬇️", "⬅️", "⬅️", "⬅️"],
   },
 ]
 
-const NUM_LEVELS = levelData.length
+const NUM_LEVELS = levelData.length - 1;

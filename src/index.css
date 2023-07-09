@@ -252,7 +252,7 @@ dialog {
   display: grid;
   place-items: center center;
   background: rgb(66, 66, 134);
-  animation: breathe 2s 5;
+  animation: breathe 3s infinite;
 }
 
 .grid-cell:focus {
