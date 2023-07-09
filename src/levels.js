@@ -1,8 +1,10 @@
 import "./levels.css"
 import { initClassic, initLevel as initLevelMain } from "./main";
+import winSound from "./ding.mp3"
 export const levelDialog = document.getElementById("level-dialog")
 const winDialog = document.getElementById("win-dialog")
 const creditsDialog = document.getElementById("credits-dialog")
+const winsfx = new Audio(winSound);
 
 document.getElementById("reset-btn").addEventListener("click", () => {
   levelManager.initLevel();
@@ -91,6 +93,7 @@ class LevelManager {
       creditsDialog.showModal();
     } else {
       winDialog.showModal();
+      winsfx.play();
     }
 
 

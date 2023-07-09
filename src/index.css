@@ -268,23 +268,58 @@ html {
 }
 
 [data-val="2"] {
-  background-color: rgb(41, 41, 105);
+  background-color: rgb(113, 143, 194);
   color: white;
 }
 
 [data-val="4"] {
-  background-color: rgb(53, 53, 134);
+  background-color: rgb(113, 143, 194);
   color: white;
 }
 
 [data-val="8"] {
-  background-color: rgb(65, 65, 161);
+  background-color: #5c8fe6;
   color: white;
 }
 
 
 [data-val="16"] {
-  background-color: rgb(77, 77, 190);
+  background-color: #596DFF;
+  color: white;
+}
+
+[data-val="32"] {
+  background-color:rgb(86, 86, 211);
+  color: white;
+}
+
+[data-val="64"] {
+  background-color: rgb(86, 86, 211);
+  color: white;
+}
+
+[data-val="128"] {
+  background-color: #4E26FF;
+  color: white;
+}
+
+[data-val="256"] {
+  background-color:#4E26FF;
+  color: white;
+}
+
+[data-val="512"] {
+  background-color: #4b00a0;
+  color: white;
+}
+
+[data-val="1024"] {
+  background-color: #4d148f;
+  color: white;
+}
+
+[data-val="2048"] {
+  background-color: #42015a;
   color: white;
 }
 

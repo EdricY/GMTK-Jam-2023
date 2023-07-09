@@ -37,13 +37,8 @@
   position: relative;
 }
 
-.level-select-btn.solved::after {
-  content: "✅";
-  position: absolute;
-  right: 0;
-  top: 0;
-  font-size: 0.8em;
-
+.level-select-btn.solved {
+  background-color: rgb(60, 197, 60);
 }
 
 @media screen and (max-width: 400px) {
