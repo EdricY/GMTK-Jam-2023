@@ -118,6 +118,16 @@ window.levelManager = levelManager
 
 
 const levelData = [null,
+  { //test
+    startingGrid: [
+      [2, 4, 8, 16],
+      [32, 64, 128, 256],
+      [512, 1024, 2048, null],
+      [null, null, null, null],
+    ],
+    queueVals: [1024],
+    levelDirQueue: ["⬅️"],
+  },
   { //1
     startingGrid: [
       [null, null, null, null],
